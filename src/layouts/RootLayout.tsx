@@ -1,35 +1,17 @@
 import React from 'react';
-import { NavLink, Outlet } from "react-router-dom";
-import { Badge } from '@/components/ui/badge';
+import { Outlet } from "react-router-dom";
 import Header from "../components/ui/Header";
+import CategoryNav from "../components/ui/CategoryNav";
 
 const RootLayout = () => {
 
     return (
         <div>
             <Header />
-            <main style={{ border: 'solid 2px black'}}>
-                <div className="container mx-auto" style={{ border: 'solid 2px black'}}>
-                        <div className="flex justify-center">
-                            <NavLink className="mr-12" to="/">
-                            <Badge>
-                                All
-                            </Badge>
-
-                            </NavLink>
-                            <NavLink className="mr-12" to="/category/women">
-                                Women
-                            </NavLink>
-                            <NavLink className="mr-12" to="category/men">
-                                Men
-                            </NavLink>
-                            <NavLink className="mr-12" to="category/sports">
-                                Sports
-                            </NavLink>
-                        </div>
-                        <div>
-                            <Outlet />
-                        </div>
+            <main className="container">
+                <CategoryNav />
+                <div className="my-10" style={{ border: 'solid 2px black' }}>
+                    <Outlet />
                 </div>
             </main>
         </div>
