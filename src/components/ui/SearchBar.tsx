@@ -38,14 +38,14 @@ const SearchBar: React.FC = () => {
     return (
         <div className="relative max-w-md mx-auto">
             <div className="relative flex items-center">
-                <Search className="absolute left-3 text-gray-500" />
+                <Search className="absolute left-3" />
                 <Input
                     type="text"
                     value={query}
                     onChange={handleSearch}
                     onFocus={() => setShowResults(true)}
                     onBlur={() => setShowResults(false)}
-                    className="w-full text-gray-500 pl-10 border rounded-lg focus:outline-none"
+                    className="w-full bg-slate-400 pl-10 border-transparent rounded-lg focus:bg-white focus:text-black"
                     placeholder="Search products"
                 />
             </div>

@@ -10,7 +10,7 @@ const RootLayout = () => {
             <Header />
             <main className="container">
                 <CategoryNav />
-                <div className="my-10" style={{ border: 'solid 2px black' }}>
+                <div className="my-10">
                     <Outlet />
                 </div>
             </main>
