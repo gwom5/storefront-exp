@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 const MainNav = () => {
 
     return (
-        <div className="hidden md:flex w-5/6 items-center justify-between">
+        <div className="hidden md:flex w-5/6 items-center justify-between font-serif">
             <div className="flex">
                 <MenuSheet />
                 <nav className="ml-3 font-extrabold">
