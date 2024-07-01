@@ -1,46 +1,30 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React from 'react';
 import RootLayout from "./layouts/RootLayout";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
 import Home from "./pages/Home";
 import ProductCategory from './pages/ProductCategory';
-import {categoriesQuery, productByIdLoader, productsByCategoryLoader} from "./lib/api/queriesLoader";
-import {Category} from "./lib/types/types";
+import {productByIdLoader, productsByCategoryLoader} from "./lib/api/queriesLoader";
 import Product from "./pages/Product";
+import AppProvider from "./lib/providers/AppProvider";
+import CartProvider from "./lib/providers/CartProvider";
+import ErrorPage from "./pages/ErrorPage";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-export interface AppContextType {
-    categories: Category[];
-}
-
-export const AppContext = createContext<AppContextType | null>(null);
-const App = () => {
-    const queryClient = useQueryClient();
-    const { data: categoryStrings, error, isLoading = false } = useQuery(categoriesQuery());
-    const [categories, setCategories] = useState<Category[]>([]);
-
-    const buildCategories = () => {
-        const categoryMap = {
-            electronics: 'Electronics',
-            "men's clothing": 'Men',
-            "women's clothing": 'Women',
-            jewelery: "Jewelery"
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 10,
         }
-        const cats: Category[] = categoryStrings.map((item) => {
-            return {
-                name: categoryMap[item],
-                alias: item,
-                imageLink: 'https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-            }
-        });
-
-        setCategories(cats);
     }
+});
 
+const App = () => {
     const router = createBrowserRouter(
         [
             {
                 path: '/',
                 element: <RootLayout />,
+                errorElement: <ErrorPage />,
                 children: [
                     {
                         index: true,
@@ -50,29 +34,31 @@ const App = () => {
                         path: 'category/:categoryName',
                         element: <ProductCategory />,
                         loader: productsByCategoryLoader(queryClient),
+                        errorElement: <ErrorPage />,
                     },
                     {
                         path: 'product/:id',
                         element: <Product />,
                         loader: productByIdLoader(queryClient),
+                        errorElement: <ErrorPage />,
                     },
+                    {
+                        path: '*',
+                        element: <ErrorPage />
+                    }
                 ]
             }
         ]
     );
 
-    useEffect(() => {
-        if(!isLoading && !error)
-            buildCategories();
-    }, [isLoading, error]);
-
-    if (isLoading) return null;
-    if (error) return 'Error element';
-
   return (
-      <AppContext.Provider value={{ categories }} >
-          <RouterProvider router={router} />
-      </AppContext.Provider>
+      <QueryClientProvider client={queryClient}>
+          <AppProvider>
+              <CartProvider>
+                  <RouterProvider router={router} />
+              </CartProvider>
+          </AppProvider>
+      </QueryClientProvider>
   );
 }
 

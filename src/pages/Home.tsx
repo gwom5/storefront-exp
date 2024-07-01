@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Card} from "../components/ui/Card";
 import {MoveRight} from "lucide-react";
 import {Link} from "react-router-dom";
-import {AppContext} from "../App";
+import {AppContext} from "../lib/providers/AppProvider";
 import { Category } from '@/lib/types/types';
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
         <div>
             <div className="grid md:grid-cols-3 auto-rows-[400px] gap-4 my-10">
                 {categories.map((category: Category, index) => (
-                    <Card className={`relative ${index === 0 ? 'md:col-span-3' : ''} overflow-hidden`}>
+                    <Card key={category.name} className={`relative ${index === 0 ? 'md:col-span-3' : ''} overflow-hidden`}>
                         <Link to={`/category/${category.name}`}>
                             <img
                                 className="max-h-[400px] w-full object-cover rounded"

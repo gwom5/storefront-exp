@@ -13,3 +13,18 @@ export interface Product {
     image: string;
     rating: { rate: number; count: number }
 }
+
+export interface Cart {
+    id: number | null;
+    userId: number | null;
+    date: string;
+    products: {
+        product: Product;
+        quantity: number;
+    }[];
+}
+
+export interface User {
+    id: number;
+    email: string;
+}

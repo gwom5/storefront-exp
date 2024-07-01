@@ -1,4 +1,4 @@
-import {QueryClient, queryOptions} from '@tanstack/react-query';
+import {QueryClient, QueryOptions} from '@tanstack/react-query';
 import {fetchCategories, fetchProductById, fetchProductsByCategory} from './fetchData';
 import { LoaderFunctionArgs } from 'react-router-dom';
 import { mapCategoryToRequest } from '../utils';
@@ -12,10 +12,11 @@ export const categoriesQuery = () => ({
 export const productByIdQuery = (id: number) => ({
     queryKey: ['product', id],
     queryFn: async () => {
-        const product = await fetchProductById(id);
-        if (!product) throw new Error('Product not found');
-
-        return product
+        try {
+            return await fetchProductById(id);
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 })
 
@@ -25,12 +26,22 @@ export const productsByCategoryQuery = (category: string) => {
     return {
         queryKey: ['categoryProducts', categoryName],
         queryFn: async () => await fetchProductsByCategory(categoryName)
-}}
+    }
+}
 
 export const productByIdLoader = (queryClient: QueryClient) => async ({params}: LoaderFunctionArgs) => {
     const { id } = params;
-    if(!id) throw new Error('No id provided');
-    return await queryClient.ensureQueryData(productByIdQuery(id));
+    if(!id) throw new Response('No id provided', { status: 400, statusText: 'Id was not provided' });
+
+    try {
+        return await queryClient.ensureQueryData(productByIdQuery(id));
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Response(error.message, { status: 400, statusText: 'Not found'});
+        }
+
+        throw error;
+    }
 }
 
 export const productsByCategoryLoader = (queryClient: QueryClient) => async ({params}: LoaderFunctionArgs) => {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Header from "../components/ui/Header";
 import CategoryNav from "../components/ui/CategoryNav";
+import ErrorBoundary from "./ErrorBoundary";
 
 
 const RootLayout = () => {
@@ -12,7 +13,9 @@ const RootLayout = () => {
             <main className="container">
                 <CategoryNav />
                 <div className="my-10">
-                    <Outlet />
+                    <ErrorBoundary>
+                        <Outlet />
+                    </ErrorBoundary>
                 </div>
             </main>
         </div>
