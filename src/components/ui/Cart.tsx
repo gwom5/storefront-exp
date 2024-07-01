@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { ShoppingCart } from "lucide-react";
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "./Sheet";
-import {CartContext} from "../../lib/providers/CartProvider";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "./Sheet";
+import { CartContext } from "../../lib/providers/CartProvider";
 import CartItem from "./CartItem";
 
 const Cart = () => {
@@ -18,7 +18,7 @@ const Cart = () => {
 
     return (
         <Sheet>
-            <SheetTrigger>
+            <SheetTrigger asChild>
                 <div className="relative">
                     <ShoppingCart />
                     {itemCount > 0 && (
@@ -36,9 +36,8 @@ const Cart = () => {
                 <SheetHeader>
                     <SheetTitle>Cart</SheetTitle>
                 </SheetHeader>
-                <SheetDescription
-                    className="h-full flex flex-col"
-                    >
+                <SheetDescription />
+                <div className="h-full flex flex-col">
                     {!itemCount && (
                         <div className="flex flex-col justify-center h-full mx-4">
                             <h1 className="flex justify-center font-semibold text-lg text-gray-600">
@@ -49,10 +48,10 @@ const Cart = () => {
                             </div>
                         </div>
                     )}
-                    {itemCount && (
+                    {!!itemCount && (
                         <div className="flex flex-col h-full justify-between my-4">
                             <div className="h-full">
-                                {cart.products.map((item, index) => (
+                                {cart.products.map((item) => (
                                     <CartItem
                                         key={item.product.id}
                                         product={item.product}
@@ -67,8 +66,7 @@ const Cart = () => {
                             </div>
                         </div>
                     )}
-
-                </SheetDescription>
+                </div>
             </SheetContent>
         </Sheet>
     );

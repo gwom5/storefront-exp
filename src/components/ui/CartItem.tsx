@@ -14,7 +14,7 @@ const CartItem = (props: CartItemProps) => {
     return (
         <div className="flex items-center  p-4 border-b border-gray-300 min-h-1/5">
             <img src={`${product.image}`} className="w-16 h-20 object-cover rounded" />
-            <div className="flex-1 ml-4">
+            <div className="flex-1 ml-4 text-xs font-semibold">
                 <h3>{product.title}</h3>
                 <p className="text-gray-600 font-semibold">R{product.price}</p>
             </div>
@@ -23,21 +23,21 @@ const CartItem = (props: CartItemProps) => {
                     onClick={() => handleDecrease(product.id)}
                     className="text-gray-600 hover:text-gray-800 p-1"
                 >
-                    <Minus size={20} />
+                    <Minus size={15} />
                 </button>
-                <span className="mx-2 text-base">{quantity}</span>
+                <span className="mx-2 text-sm">{quantity}</span>
                 <button
                     onClick={() => handleIncrease(product.id)}
                     className="text-gray-600 hover:text-gray-800 p-1"
                 >
-                    <Plus size={20} />
+                    <Plus size={15} />
                 </button>
             </div>
             <button
                 onClick={() => handleRemove(product.id)}
                 className="text-red-600 hover:text-red-800 ml-4"
             >
-                <Trash size={20} />
+                <Trash size={15} />
             </button>
         </div>
     );

@@ -1,4 +1,4 @@
-import {QueryClient, QueryOptions} from '@tanstack/react-query';
+import {QueryClient} from '@tanstack/react-query';
 import {fetchCategories, fetchProductById, fetchProductsByCategory} from './fetchData';
 import { LoaderFunctionArgs } from 'react-router-dom';
 import { mapCategoryToRequest } from '../utils';
