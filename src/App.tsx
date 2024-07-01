@@ -1,14 +1,14 @@
 import React from 'react';
 import RootLayout from "./layouts/RootLayout";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import Home from "./pages/Home";
-import ProductCategory from './pages/ProductCategory';
+import ProductCategoryContainer from "./pages/ProductCategory";
 import {productByIdLoader, productsByCategoryLoader} from "./lib/api/queriesLoader";
 import Product from "./pages/Product";
 import AppProvider from "./lib/providers/AppProvider";
 import CartProvider from "./lib/providers/CartProvider";
 import ErrorPage from "./pages/ErrorPage";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -32,7 +32,7 @@ const App = () => {
                     },
                     {
                         path: 'category/:categoryName',
-                        element: <ProductCategory />,
+                        element: <ProductCategoryContainer />,
                         loader: productsByCategoryLoader(queryClient),
                         errorElement: <ErrorPage />,
                     },

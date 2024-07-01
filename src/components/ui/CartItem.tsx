@@ -3,12 +3,12 @@ import {Product} from "../../lib/types/types";
 import {CartContext} from "../../lib/providers/CartProvider";
 import {Minus, Plus, Trash} from "lucide-react";
 
-interface CartItemProps {
+export interface CartItemProps {
     product: Product;
     quantity: number;
 }
-const CartItem = (props: CartItemProps) => {
-    const { product, quantity } = props;
+
+const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
     const { handleIncrease, handleDecrease, handleRemove } = useContext(CartContext);
 
     return (

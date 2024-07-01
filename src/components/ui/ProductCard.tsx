@@ -9,8 +9,7 @@ interface ProductCardProps {
     price: number;
 }
 
-const ProductCard = (props: ProductCardProps) => {
-    const { id, image, title, price} = props;
+const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price }) => {
 
     return (
         <Link to={`/product/${id}`}>

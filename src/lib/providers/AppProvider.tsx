@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, ReactNode, useEffect, useState} from 'react';
 import {Category} from "../types/types";
 import {useQuery} from "@tanstack/react-query";
 import {categoriesQuery} from "../api/queriesLoader";
@@ -8,8 +8,12 @@ export interface AppContextType {
     categories: Category[];
 }
 
+export interface AppContextProviderProps {
+    children: ReactNode
+}
+
 export const AppContext = createContext<AppContextType | null>(null);
-const AppProvider = ({children}) => {
+const AppProvider: React.FC<AppContextProviderProps> = ({children}) => {
     const { data: categoryStrings, error, isLoading = false } = useQuery(categoriesQuery());
     const [categories, setCategories] = useState<Category[]>([]);
 
