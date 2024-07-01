@@ -35,3 +35,9 @@ This project is a submission for the DVT frontend developer role challenge. The 
 - **Build tools**: Vite is used as the build tool for fast development and optimized production builds.
 
 - **@ts-ignores**: No @ts-ignores or similar are used in the project. TypeScript errors and warnings are addressed directly with type annotations and correct typings.
+- I checked the ```.lock``` file in, so you can run with exact versions. Feel free to delete if not needed
+
+## Running instructions
+- Run ```yarn``` to install dependencies
+- ```yarn run dev``` to run app
+- visit ```http://localhost:5173/``` to view
