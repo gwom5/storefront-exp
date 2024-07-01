@@ -24,7 +24,7 @@ This project is a submission for the DVT frontend developer role challenge. The 
 
 - **Global state management**: Implemented through Context API and @tanstack/react-query, ensuring centralized data management across components. The project was carefully structured in a way that avoids unnecessary rerenders. For example, the Cart context is seperated from the main application context so that updates to the cart do not cause rerenders of components that do not directly read from or mutate it. 
 
-- **Multiple routes**: React Router v6 enables multiple routes for navigating between different sections of the storefront, enhancing user experience and application structure.
+- **Multiple routes and error handling**: React Router v6 enables multiple routes for navigating between different sections of the storefront, enhancing user experience and application structure. Added to that errors are caught and handled gracefully and displayed in a user-friendly manner, using a combination of error elements and an ErrorBoundary.
 
 - **Visual enhancements**: Designed with a focus on clean UI and simple using Tailwind CSS, the application is responsive on different devices, including mobile and desktop.
 
